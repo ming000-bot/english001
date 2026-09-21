@@ -83,6 +83,7 @@
       text-transform:uppercase;
     }
 
+    /* 新增：分组下拉 + 搜索框样式 */
     .control-row{
       display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;
     }
@@ -138,6 +139,16 @@
       letter-spacing:1px;
       margin-bottom:8px;
     }
+  .phonetic2{
+    position:relative;
+    top:463px;
+    left:180px;
+    font-size:16px;
+    color:rgba(255,255,255,0.2);
+    font-family:"Menlo","Consolas",monospace;
+    letter-spacing:1px;
+    margin-bottom:8px;
+  }
     .meaning{
       font-size:15px;color:var(--muted);
       margin-bottom:32px;min-height:20px;
@@ -218,7 +229,7 @@
       <span class="corner tl"></span><span class="corner tr"></span>
       <span class="corner bl"></span><span class="corner br"></span>
       <span class="tag">VOCABULARY</span>
-
+      <span class="phonetic2">明☆制作</span>
       <!-- 分组下拉 + 搜索 -->
       <div class="control-row">
         <select id="groupSelect" class="group-select"></select>
@@ -473,6 +484,7 @@
     else{ speakBtn.classList.remove("playing"); speakText.textContent = "播放发音"; }
   }
 
+  // 方案一：在线发音音频（微信内置浏览器/手机也能出声）
   function playOnline(){
     return new Promise((resolve, reject) => {
       const word = filterList[current].word;
@@ -483,6 +495,7 @@
     });
   }
 
+  // 方案二：系统语音合成（兜底）
   function playTTS(){
     if(!("speechSynthesis" in window)){
       voiceTip.textContent = "当前环境无法播放声音";
